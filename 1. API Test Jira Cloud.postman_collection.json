@@ -1,0 +1,607 @@
+{
+	"info": {
+		"_postman_id": "3ad9cbbe-bd55-4378-ba86-cd20220fe0fb",
+		"name": "1. API Test Jira Cloud",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28740862"
+	},
+	"item": [
+		{
+			"name": "End To End Testing",
+			"item": [
+				{
+					"name": "Create issue story in existing project",
+					"item": [
+						{
+							"name": "Get Projects",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"console.log(); console.log('------------Tests------------'); console.log();\r",
+											"// Aim of the script is to store project id\r",
+											"\r",
+											"// Get JSON reponse and store the javascript\r",
+											"const jsonResponse = pm.response.json();\r",
+											"console.log(jsonResponse.values);\r",
+											"\r",
+											"let projectDetails = jsonResponse.values; // Save the entire value array, starting from values\r",
+											"let desiredValues = projectDetails.map( (value) => value.name ); // Maps project names\r",
+											"\r",
+											"// const projectNames = projectDetails.map( (projectName) => projectName.name ); // Map project names\r",
+											"// const projectKeys = projectDetails.map( (projectKeys) => projectKeys.key ); // Maping the key\r",
+											"// console.log(projectNames); // Prints the names of the projects\r",
+											"// console.log(projectKeys); // Prints the keys from every project\r",
+											"\r",
+											"// Store the value collected from console in a collection variable\r",
+											"// Pass the project you want to end to end test\r",
+											"pm.collectionVariables.set( 'projectID', projectDetails[ desiredValues.indexOf('Go to market sample') ].id );\r",
+											"\r",
+											"// Based on the project key, set the id in collection variable\r",
+											"pm.collectionVariables.set( 'projectKey', projectDetails[ desiredValues.indexOf('Go to market sample') ].key );\r",
+											"\r",
+											"\r",
+											"// // Get index of a value in a perticular array\r",
+											"// const issueType = jsonResponse.map( (value) => value.name ); // Map all name values\r",
+											"// console.log(issueType); // eck if issue type = something\r",
+											"// console.log(issueType.indexOf('Epic')); // Get the index of Epic \r",
+											"\r",
+											"\r",
+											"// console.log(jsonReponse.values[1].id); // Best way to store an id, becuase it may change\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"// // Collection level variable, creates new variable in the collection file\r",
+											"// // pm.collectionVariables.set('nameOFVariable', ValueFromJsonResponse)\r",
+											"// pm.collectionVariables.set('projectID', jsonReponse.values[1].id)\r",
+											"\r",
+											"// // Set the value of issue id\r",
+											"// pm.collectionVariables.set('issueID', jsonReponse.values[1].id)\r",
+											"\r",
+											"\r",
+											"// Chaining 1 - Setting run order of request - Write name of the request in string form\r",
+											"// This arrages the sequence in which the test are ran and stop\r",
+											"// postman.setNextRequest(\"Get All IssuseType For Project\");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// console.clear(); console.log('------- Pre-Request -------'); console.log();\r",
+											"\r",
+											"\r",
+											"// Map Functions - Using Dummy Array\r",
+											"// const array1 = [ 1, 2, 3, 4, 5 ];\r",
+											"\r",
+											"// // Double number function - Doubles any number by two everytime this function is called\r",
+											"// function doubleValue(num){\r",
+											"//     console.log(num * 2);\r",
+											"// }\r",
+											"\r",
+											"\r",
+											"// // Number will be multiplied by two\r",
+											"// doubleValue(10); // Number passed will be doubled by two\r",
+											"\r",
+											"\r",
+											"// // Map method will iterate through all the methods in the array and doubles all the numbers\r",
+											"// // array.map - Returns the array\r",
+											"// // array1.map(function doubleValue(num){\r",
+											"// //     console.log(num * 2);\r",
+											"// // });\r",
+											"\r",
+											"// // Prints undefined values\r",
+											"// console.log( array1.map(function doubleValue(num){ // Here we are returning not logging\r",
+											"//     return num * 2;\r",
+											"// }));\r",
+											"\r",
+											"\r",
+											"// // Shorter version of map function\r",
+											"// // Map each number of array and then return double of the number\r",
+											"const array1 = [ 1, 2, 3, 4, 5 ];\r",
+											"console.log( array1.map(  (num) => num * 2 )  );\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"// Real world example of how to use map function when testing api's\r",
+											"// Sample Array\r",
+											"const employee = [ // An array of employees, with two attributes for each\r",
+											"    {\r",
+											"        \"name\":\"VM\",\r",
+											"        \"dept\":\"IT\"\r",
+											"    },\r",
+											"    {\r",
+											"        \"name\":\"RCV\",\r",
+											"        \"dept\":\"HR\"\r",
+											"    },\r",
+											"    {\r",
+											"        \"name\":\"TLV\",\r",
+											"        \"dept\":\"Finance\"\r",
+											"    }\r",
+											"]\r",
+											"// Map function of value, Here we'll just print the names\r",
+											"console.log( employee.map( (value) => value.name ) );\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{My Email}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{jirademo}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostname}}/rest/api/3/project/search",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"rest",
+										"api",
+										"3",
+										"project",
+										"search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All IssuseType For Project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"console.log(); console.log('----------------Mapping values----------------'); console.log();\r",
+											"\r",
+											"// Get JSON response\r",
+											"const jsonResponse = pm.response.json();\r",
+											"\r",
+											"// console.log(jsonResponse); // Print array of all jira projects\r",
+											"\r",
+											"const desiredValues = jsonResponse.map( (value) => value.name );\r",
+											"\r",
+											"// pm.collectionVariables.set( 'issueID', jsonResponse[ desiredValues.indexOf('Task') ].id );\r",
+											"\r",
+											"// Iteration Data - Read issueID name from CSV file\r",
+											"pm.collectionVariables.set( 'issueID', jsonResponse[ desiredValues.indexOf( pm.variables.get(\"issuseName\") ).id ] );\r",
+											"\r",
+											"// // Map value from the response\r",
+											"// // Gets specifice values in the \r",
+											"// console.log( jsonResponse.map( (value) => value.id ) ); \r",
+											"// console.log( jsonResponse.map( (value) => value.name ) );\r",
+											"// console.log( jsonResponse.map( (value) => value.avatarId ) );\r",
+											"\r",
+											"// // Setting varibale using for loop and if statement\r",
+											"// for( i=0; i<jsonResponse.length; i++ ){\r",
+											"//     if( jsonResponse[i].name === 'Task' ){ // check if one of the names in array = story\r",
+											"//         pm.collectionVariables.set( 'issueTypeID',jsonResponse[i].id )\r",
+											"//     }\r",
+											"// } \r",
+											"\r",
+											"\r",
+											"// // Get index of a value in a perticular array\r",
+											"// const issueType = jsonResponse.map( (value) => value.name ); // Map all name values\r",
+											"// console.log(issueType); // eck if issue type = something\r",
+											"// console.log(issueType.indexOf('Epic')); // Get the index of Epic\r",
+											"\r",
+											"// // Store the id using map function - Get the variable using previous method\r",
+											"// pm.collectionVariables.set( 'issueTypeIdMap', jsonResponse[issueType.indexOf('Epic')].id );\r",
+											"\r",
+											"\r",
+											"// // This is to help you to use code to store values instead of hard coding them \r",
+											"\r",
+											"\r",
+											"// Chaining 2 - Next Request\r",
+											"// postman.setNextRequest(\"Get users assignable to projects\");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{My Email}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{jirademo}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostname}}/rest/api/3/issuetype/project?projectId={{projectID}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"rest",
+										"api",
+										"3",
+										"issuetype",
+										"project"
+									],
+									"query": [
+										{
+											"key": "projectId",
+											"value": "{{projectID}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get users assignable to projects",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"console.log(); console.log('----------------Mapping displayName----------------'); console.log();\r",
+											"\r",
+											"\r",
+											"// The  projectKey will get you into a spercific project\r",
+											"const jsonResponse = pm.response.json();\r",
+											"\r",
+											"\r",
+											"let desiredValues = jsonResponse.map( (value) => value.displayName );\r",
+											"\r",
+											"\r",
+											"// Setting users accountId and store it as a variable - Pass one of the user\r",
+											"pm.collectionVariables.set( 'accountID', jsonResponse[desiredValues.indexOf('Themba Maluleke')].accountId );\r",
+											"\r",
+											"\r",
+											"// Chaining 3 - Say you want the chaining to stop - Set the string value to null\r",
+											"// Null string value, will terminate the request from executing\r",
+											"// postman.setNextRequest(null);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{My Email}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{jirademo}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostname}}/rest/api/3/user/assignable/multiProjectSearch?projectKeys={{projectKey}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"rest",
+										"api",
+										"3",
+										"user",
+										"assignable",
+										"multiProjectSearch"
+									],
+									"query": [
+										{
+											"key": "projectKeys",
+											"value": "{{projectKey}}",
+											"description": "Key of the project"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create IssueType Story",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Store the key or id and validate if response is there\r",
+											"const jsonResponse = pm.response.json();\r",
+											"\r",
+											"\r",
+											"// Check if id is present\r",
+											"pm.collectionVariables.set(\"createdIssueID\", jsonResponse.id);\r",
+											"\r",
+											"// Check if key is present\r",
+											"pm.collectionVariables.set( \"createdIssueKey\", jsonResponse.key );\r",
+											"\r",
+											"// Check if self/URL is present\r",
+											"pm.collectionVariables.set( \"CreatedStory\", jsonResponse.self );\r",
+											"\r",
+											"\r",
+											"\r",
+											"// Test if end to end testing was successful or not\r",
+											"pm.test(\"Status code is 201 and a success\", ()=> {\r",
+											"    pm.response.to.have.status(201);\r",
+											"    pm.response.to.be.success;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Create a variable that you'll use later, when testing\r",
+											"\r",
+											"// Title store the new random phrase that will be created\r",
+											"// var title = pm.collectionVariables.replaceIn(  \"{{$randomPhrase}}\" ); --\r",
+											"\r",
+											"// Store the phrase as collection variable to be use by the body\r",
+											"// Make issue type a random phrase\r",
+											"// pm.collectionVariables.set( 'issuseTitle', title ); --\r",
+											"\r",
+											"// Read file name from iteration data\r",
+											"pm.collectionVariables.set( 'issuseTitle', pm.variables.get(\"issueTitle\") );\r",
+											"\r",
+											"\r",
+											"\r",
+											"// The random phrase is just the sample title for the issue being raised"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{My Email}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{jirademo}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n  \"fields\": {\r\n\r\n     \"project\": {\r\n         // Getting rid of all hard coding in the script\r\n         \"id\": \"{{projectID}}\"\r\n     }, \r\n    \"reporter\": {\r\n        \"id\": \"{{accountID}}\"\r\n    },\r\n    \"issuetype\": {\r\n        \"id\": \"{{issueID}}\"\r\n    },\r\n    // Random dynamic phrase from postman library - Everytime the script is ran there will be a ramdom phrase that will be created in jira\r\n    \"summary\": \"{{$randomPhrase}}\" \r\n}, \r\n\"update\": {}\r\n\r\n}"
+								},
+								"url": {
+									"raw": "{{hostname}}/rest/api/3/issue/",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"rest",
+										"api",
+										"3",
+										"issue",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Issue",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Get the issuse details, gets you the details of the issuse\r",
+											"// Get the issue ID from the create issue post request\r",
+											"\r",
+											"pm.test(\"Status code is 200\", ()=> {\r",
+											"    pm.response.to.have.status(200);\r",
+											"    pm.response.to.be.success;\r",
+											"});\r",
+											"\r",
+											"\r",
+											"// Validate the summary and see if title fomr get request matches the get request\r",
+											"const jsonResponse = pm.response.json();\r",
+											"console.log(); console.log(\"--------------- Print json response ---------------\");\r",
+											"console.log(jsonResponse);\r",
+											"console.log(); console.log(\"--------------- Print the fields tab ---------------\");\r",
+											"console.log(jsonResponse.fields);\r",
+											"console.log(); console.log(\"--------------- Print Summary statement, inside fields ---------------\");\r",
+											"console.log(jsonResponse.fields.summary);\r",
+											"\r",
+											"\r",
+											"console.log(); console.log(\"--------------- Scipt - JSON value check ---------------\");\r",
+											"pm.test(\"Summary matchs issue title\", ()=> {\r",
+											"    pm.expect(jsonResponse.fields.summary).to.eql( \"{{issuseTitle}}\" );\r",
+											"});\r",
+											"\r",
+											"console.log(); console.log(\"End-To-End test case complete\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{My Email}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{jirademo}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{hostname}}/rest/api/3/issue/{{createdIssueID}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"rest",
+										"api",
+										"3",
+										"issue",
+										"{{createdIssueID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Here we'll test the business scenario's:\n\n- Creating a new project.\n    \n- Testing the hole business flow of the user creation.\n    \n- Testing issue creation in a particlar project, or in a new project.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// on end to end testing we organise based on business use cases."
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "projectID",
+			"value": ""
+		},
+		{
+			"key": "projectKey",
+			"value": ""
+		},
+		{
+			"key": "issueID",
+			"value": ""
+		},
+		{
+			"key": "accountID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "NewIssueID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "issuseTitle",
+			"value": ""
+		},
+		{
+			"key": "createdIssueKey",
+			"value": ""
+		},
+		{
+			"key": "createdIssueID",
+			"value": ""
+		},
+		{
+			"key": "CreatedStory",
+			"value": ""
+		}
+	]
+}
