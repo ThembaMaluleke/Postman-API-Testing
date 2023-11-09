@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "3ad9cbbe-bd55-4378-ba86-cd20220fe0fb",
-		"name": "1. API Test Jira Cloud",
+		"_postman_id": "b0eb0bf5-4e76-42cc-8fe4-04f3cf88f4d9",
+		"name": "1. API Test Jira Cloud Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "28740862"
 	},
@@ -67,7 +67,11 @@
 											"\r",
 											"// Chaining 1 - Setting run order of request - Write name of the request in string form\r",
 											"// This arrages the sequence in which the test are ran and stop\r",
-											"// postman.setNextRequest(\"Get All IssuseType For Project\");"
+											"// postman.setNextRequest(\"Get All IssuseType For Project\");\r",
+											"\r",
+											"pm.test(\"Status code is 200\", ()=> {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -297,7 +301,11 @@
 											"\r",
 											"// Chaining 3 - Say you want the chaining to stop - Set the string value to null\r",
 											"// Null string value, will terminate the request from executing\r",
-											"// postman.setNextRequest(null);"
+											"// postman.setNextRequest(null);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", ()=> {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
 										],
 										"type": "text/javascript"
 									}
